@@ -97,6 +97,16 @@ for message in client.iter_messages(user_id):
             2.0 * message.media.document.attributes[0].duration / 60.0
         )
 
+    # Voices
+    if (
+        isinstance(message.media, MessageMediaDocument)
+        and message.media.video == True
+        and message.media.document != None
+    ):
+        if TEST_MODE:
+            print("Video: ", message.media.document.attributes[0].duration)
+        total_minutes_count += message.media.document.attributes[0].duration / 60.0
+
 print(
     "Всего {} провел времени с {} в Telegram {} часов и {} минут".format(
         client.get_me().first_name,
